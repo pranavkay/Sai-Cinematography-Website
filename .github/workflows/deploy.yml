@@ -29,10 +29,6 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-        env:
-          # If your app needs the API key to work, it must be added to Secrets
-          # See the note below this code block
-          VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
