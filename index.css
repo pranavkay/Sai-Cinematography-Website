@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* You can keep your other styles below this */
+body {
+  background-color: #050505;
+  color: #e5e5e5;
+}
