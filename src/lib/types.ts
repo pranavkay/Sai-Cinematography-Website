@@ -15,7 +15,6 @@ export interface SiteSettings {
   tagline: string;
   location: string;
   bio: string;
-  heroImageUrl: string;
   heroVideoId: string;
   profilePhotoUrl: string;
   aboutHeading: string;
@@ -27,4 +26,26 @@ export interface SiteSettings {
     youtube: string;
     linkedin: string;
   };
+}
+
+export interface HeroConfig {
+  images: string[];
+  intervalMs: number;
+}
+
+export interface Testimonial {
+  id: string;
+  name: string;
+  role: string;
+  quote: string;
+  avatarUrl?: string;
+  order: number;
+}
+
+export interface Content {
+  settings: SiteSettings;
+  hero: HeroConfig;
+  projects: Project[];
+  testimonials: Testimonial[];
+  filters: string[];
 }

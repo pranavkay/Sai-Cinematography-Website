@@ -9,20 +9,41 @@ const sharedHeaders = [
   { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
 ];
 
+// Allow images from any R2 public URL (pub-*.r2.dev or custom domain configured via R2_PUBLIC_URL)
+const r2Hostname = (() => {
+  try {
+    const url = process.env.R2_PUBLIC_URL;
+    return url ? new URL(url).hostname : "*.r2.dev";
+  } catch {
+    return "*.r2.dev";
+  }
+})();
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "img.youtube.com" },
-      { protocol: "https", hostname: "cdn.sanity.io" },
       { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: r2Hostname },
+      { protocol: "https", hostname: "*.r2.dev" },
+      { protocol: "https", hostname: "*.r2.cloudflarestorage.com" },
     ],
   },
 
   async headers() {
+    const cspImgSrc = [
+      "'self'",
+      "data:",
+      "blob:",
+      "https://img.youtube.com",
+      "https://images.unsplash.com",
+      "https://*.r2.dev",
+      "https://*.r2.cloudflarestorage.com",
+    ].join(" ");
+
     return [
-      // Strict CSP for the main site (everything except /studio)
       {
-        source: "/((?!studio).*)",
+        source: "/(.*)",
         headers: [
           ...sharedHeaders,
           {
@@ -32,31 +53,11 @@ const nextConfig: NextConfig = {
               "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
               "style-src 'self' 'unsafe-inline'",
               "font-src 'self'",
-              "img-src 'self' data: blob: https://img.youtube.com https://cdn.sanity.io https://images.unsplash.com",
+              `img-src ${cspImgSrc}`,
               "frame-src https://www.youtube.com https://drive.google.com",
               "frame-ancestors 'none'",
-              "connect-src 'self' https://*.sanity.io https://*.api.sanity.io",
-              "media-src 'self'",
-            ].join("; "),
-          },
-        ],
-      },
-      // Relaxed CSP for Sanity Studio (requires unsafe-eval + more connect sources)
-      {
-        source: "/studio/(.*)",
-        headers: [
-          ...sharedHeaders,
-          {
-            key: "Content-Security-Policy",
-            value: [
-              "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-              "font-src 'self' https://fonts.gstatic.com",
-              "img-src 'self' data: blob: https://cdn.sanity.io https://images.unsplash.com",
-              "frame-src 'self'",
-              "connect-src 'self' https://*.sanity.io https://*.api.sanity.io wss://*.sanity.io",
-              "media-src 'self' https://*.sanity.io",
+              "connect-src 'self'",
+              "media-src 'self' https://*.r2.dev",
             ].join("; "),
           },
         ],

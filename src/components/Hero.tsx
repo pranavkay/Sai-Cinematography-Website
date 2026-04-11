@@ -1,22 +1,37 @@
 import { Play, ChevronDown } from "lucide-react";
-import { SiteSettings } from "@/lib/types";
+import { SiteSettings, HeroConfig } from "@/lib/types";
+import { HeroGallery } from "./HeroGallery";
 
-export function Hero({ settings }: { settings: SiteSettings }) {
+export function Hero({
+  settings,
+  hero,
+}: {
+  settings: SiteSettings;
+  hero: HeroConfig;
+}) {
+  const images = hero.images.length > 0 ? hero.images : [""];
+  const isGallery = images.length > 1;
+
   return (
     <section
       className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden"
       aria-label="Hero section"
     >
-      {/* Cinematic Background */}
       <div className="absolute inset-0 bg-black">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-60 scale-105"
-          role="img"
-          aria-label={`Cinematic background for ${settings.name}`}
-          style={{
-            backgroundImage: `url('${settings.heroImageUrl}')`,
-          }}
-        />
+        {isGallery ? (
+          <HeroGallery
+            images={images}
+            intervalMs={hero.intervalMs}
+            altPrefix={settings.name}
+          />
+        ) : (
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-60 scale-105"
+            role="img"
+            aria-label={`Cinematic background for ${settings.name}`}
+            style={{ backgroundImage: `url('${images[0]}')` }}
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-cinema-950 via-cinema-950/40 to-black/60" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent,rgba(5,5,5,0.2),rgba(5,5,5,1))] opacity-80" />
       </div>
@@ -57,11 +72,11 @@ export function Hero({ settings }: { settings: SiteSettings }) {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 animate-bounce" aria-hidden="true">
-        <span className="text-[10px] uppercase tracking-widest text-white/50">
-          Scroll
-        </span>
+      <div
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 animate-bounce"
+        aria-hidden="true"
+      >
+        <span className="text-[10px] uppercase tracking-widest text-white/50">Scroll</span>
         <ChevronDown className="w-5 h-5 text-white/50" />
       </div>
     </section>
