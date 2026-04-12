@@ -7,6 +7,7 @@ export interface Project {
   category: string;
   tags: string[];
   priority: number;
+  featured?: boolean;
 }
 
 export interface SiteSettings {

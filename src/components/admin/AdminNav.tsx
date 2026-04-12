@@ -29,7 +29,7 @@ export function AdminNav() {
       <div className="max-w-5xl mx-auto px-6 py-4 flex flex-wrap items-center gap-6 justify-between">
         <div className="flex items-center gap-6">
           <Link href="/admin" className="font-serif text-lg text-white">
-            SAI<span className="text-cinema-accent">VAIBHAV</span>{" "}
+            <span className="text-cinema-accent">SAI</span> VAIBHAV{" "}
             <span className="text-xs text-gray-500 ml-2 tracking-widest uppercase">Admin</span>
           </Link>
           <div className="hidden md:flex items-center gap-1 text-xs tracking-widest uppercase">

@@ -4,9 +4,9 @@ export const defaultContent: Content = {
   settings: {
     name: "Sai Vaibhav",
     role: "Cinematographer",
-    tagline: "Cinematographer & Visual Storyteller",
-    location: "Bangalore, India",
-    bio: "I'm someone who's always drawn to challenges—creative or technical. The more something pushes me, the more intentional I become in how I approach it.\n\nI started out as an editor, and over the past 6+ years, that's shaped how I see everything I shoot today. I don't just think in shots—I think in the final film. Most of the time, I already have a clear sense of how something will come together even before we step onto set.\n\nOver time, I've moved into cinematography and worked across a range of projects—from indie setups to more scaled commercial work. What stays constant for me is the focus on how an image feels—how light, framing, and movement come together to serve the idea.\n\nI keep my process grounded. I value clear communication, honest feedback, and working closely with the people involved to get the best out of a project.\n\nI'm selective about what I take on now. I'd rather work on fewer projects that challenge me and demand a certain level of craft.\n\nIf you have something that needs that kind of attention, I'm always open to building it.",
+    tagline: "Cinematographer — Commercials & Brand Films",
+    location: "Bengaluru, India",
+    bio: "I'm selective about what I take on now. I'd rather work on fewer projects that challenge me and demand a certain level of craft. If you have something that needs that kind of attention, I'm always open to building it.",
     heroVideoId: "2M3c8id9_oI",
     profilePhotoUrl:
       "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1000&auto=format&fit=crop",
@@ -168,6 +168,21 @@ export const defaultContent: Content = {
       priority: 2,
     },
   ],
-  testimonials: [],
-  filters: ["All", "Events", "Brand Films", "Documentary", "Instagram"],
+  testimonials: [
+    {
+      id: "t1",
+      name: "Marlon",
+      role: "Founder",
+      quote: "Working with Sai was completely stress-free from start to finish. He understood the brief instantly, communicated clearly throughout, and handled everything seamlessly without needing constant input. His reliability and professionalism made the entire process effortless.",
+      order: 0,
+    },
+    {
+      id: "t2",
+      name: "Dheemaan",
+      role: "Photographer/Videographer",
+      quote: "Sai is one of the most reliable creatives I've worked with\u2014punctual, precise, and easy to collaborate with. He brings in creative shots while staying aligned with the brief, and consistently delivers exactly what's needed with strong communication throughout.",
+      order: 1,
+    },
+  ],
+  filters: ["Featured", "Events", "Brand Films", "Documentary", "Instagram", "All"],
 };

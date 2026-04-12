@@ -50,7 +50,8 @@ export function Hero({
         </p>
 
         <div className="flex flex-col md:flex-row gap-6 items-center">
-          <a
+          {/* Watch Reel button — temporarily disabled, uncomment to re-enable */}
+          {/* <a
             href={`https://www.youtube.com/watch?v=${encodeURIComponent(settings.heroVideoId)}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -62,7 +63,7 @@ export function Hero({
             <span className="font-sans font-semibold tracking-widest text-sm uppercase">
               Watch Reel
             </span>
-          </a>
+          </a> */}
           <a
             href="#portfolio"
             className="text-white/70 hover:text-cinema-accent transition-colors font-sans text-sm tracking-widest uppercase border-b border-transparent hover:border-cinema-accent pb-1"

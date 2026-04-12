@@ -192,6 +192,18 @@ export default function ProjectsPage() {
                       </span>
                     )}
                   </FormField>
+                  <label className="flex items-center gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={p.featured || false}
+                      onChange={(e) => updateProject(p.id, { featured: e.target.checked })}
+                      className="w-4 h-4 accent-cinema-accent"
+                    />
+                    <span className="text-xs font-bold tracking-widest uppercase text-cinema-accent">
+                      Featured
+                    </span>
+                    <span className="text-xs text-gray-500">Show in the Featured tab on homepage</span>
+                  </label>
                   <FormField label="Priority" hint="1 = highest (shown first), 3 = lowest">
                     <select
                       value={p.priority}

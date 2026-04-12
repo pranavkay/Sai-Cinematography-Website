@@ -13,11 +13,13 @@ export function Portfolio({
   projects: Project[];
   filters: string[];
 }) {
-  const [activeFilter, setActiveFilter] = useState("All");
+  const defaultFilter = filters.length > 0 ? filters[0] : "All";
+  const [activeFilter, setActiveFilter] = useState(defaultFilter);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === "All") return projects;
+    if (activeFilter === "Featured") return projects.filter((p) => p.featured);
     return projects.filter((p) => p.tags.includes(activeFilter));
   }, [activeFilter, projects]);
 
