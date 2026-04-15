@@ -15,7 +15,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
             {settings.name.toUpperCase()}
           </h2>
           <p className="text-cinema-accent text-sm tracking-widest uppercase">
-            Cinematography
+            Cinematographer
           </p>
         </div>
 
