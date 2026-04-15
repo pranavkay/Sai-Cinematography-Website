@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Camera, Film, Award } from "lucide-react";
 import { SiteSettings } from "@/lib/types";
 
 export function About({ settings }: { settings: SiteSettings }) {
@@ -52,24 +51,6 @@ export function About({ settings }: { settings: SiteSettings }) {
                   {p}
                 </p>
               ))}
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-              <div className="p-4 bg-cinema-800/50 rounded border border-white/5">
-                <Camera className="w-6 h-6 text-cinema-accent mb-3" aria-hidden="true" />
-                <h4 className="text-white font-medium mb-1">Cinematography</h4>
-                <p className="text-xs text-gray-500">Events, Ads, Films</p>
-              </div>
-              <div className="p-4 bg-cinema-800/50 rounded border border-white/5">
-                <Film className="w-6 h-6 text-cinema-accent mb-3" aria-hidden="true" />
-                <h4 className="text-white font-medium mb-1">Direction</h4>
-                <p className="text-xs text-gray-500">Visual Storytelling</p>
-              </div>
-              <div className="p-4 bg-cinema-800/50 rounded border border-white/5">
-                <Award className="w-6 h-6 text-cinema-accent mb-3" aria-hidden="true" />
-                <h4 className="text-white font-medium mb-1">Quality</h4>
-                <p className="text-xs text-gray-500">Premium Grading</p>
-              </div>
             </div>
 
             <a
