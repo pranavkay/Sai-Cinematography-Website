@@ -3,6 +3,56 @@
 import { useState, useRef } from "react";
 import { Upload, X } from "lucide-react";
 
+/**
+ * Uploads a file directly to Cloudflare R2 using a presigned URL.
+ * Returns the public URL where the file can be accessed.
+ *
+ * Flow:
+ *   1. POST to /api/admin/upload-url → server returns presigned PUT URL
+ *   2. PUT file directly to R2 using that URL (bypasses Vercel)
+ *   3. Return publicUrl for use in the content form
+ *
+ * This bypasses Vercel's 4.5 MB request body limit.
+ */
+async function uploadToR2(file: File): Promise<string> {
+  // Step 1: ask the server for a presigned URL
+  const urlRes = await fetch("/api/admin/upload-url", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ filename: file.name, contentType: file.type }),
+  });
+
+  if (!urlRes.ok) {
+    let message = `Upload URL request failed (${urlRes.status})`;
+    try {
+      const data = await urlRes.json();
+      if (data.error) message = data.error;
+    } catch {
+      const text = await urlRes.text().catch(() => "");
+      if (text) message = text.slice(0, 200);
+    }
+    throw new Error(message);
+  }
+
+  const { uploadUrl, publicUrl } = await urlRes.json();
+
+  // Step 2: PUT the file directly to R2
+  const putRes = await fetch(uploadUrl, {
+    method: "PUT",
+    headers: { "Content-Type": file.type },
+    body: file,
+  });
+
+  if (!putRes.ok) {
+    const text = await putRes.text().catch(() => "");
+    throw new Error(
+      `R2 upload failed (${putRes.status}): ${text.slice(0, 200) || "no response body"}`
+    );
+  }
+
+  return publicUrl;
+}
+
 export function SingleImageUploader({
   value,
   onChange,
@@ -20,12 +70,8 @@ export function SingleImageUploader({
     setError(null);
     setUploading(true);
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Upload failed");
-      onChange(data.url);
+      const publicUrl = await uploadToR2(file);
+      onChange(publicUrl);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Upload failed");
     } finally {
@@ -94,16 +140,12 @@ export function MultiImageUploader({
     setError(null);
     setUploading(true);
     try {
-      const urls: string[] = [];
+      const uploaded: string[] = [];
       for (const file of Array.from(files)) {
-        const formData = new FormData();
-        formData.append("file", file);
-        const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "Upload failed");
-        urls.push(data.url);
+        const publicUrl = await uploadToR2(file);
+        uploaded.push(publicUrl);
       }
-      onChange([...value, ...urls]);
+      onChange([...value, ...uploaded]);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Upload failed");
     } finally {

@@ -1,4 +1,5 @@
 import { S3Client, GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { Content } from "./types";
 import { defaultContent } from "./data";
 
@@ -90,25 +91,23 @@ export async function putContent(content: Content): Promise<void> {
   );
 }
 
-export async function uploadFile(
-  buffer: Buffer,
+export async function createPresignedUploadUrl(
   key: string,
   contentType: string
-): Promise<string> {
+): Promise<{ uploadUrl: string; publicUrl: string }> {
   const client = getClient();
   if (!client) {
-    throw new Error("R2 not configured — cannot upload file");
+    throw new Error("R2 not configured — cannot create upload URL");
   }
 
-  await client.send(
-    new PutObjectCommand({
-      Bucket: getBucket(),
-      Key: key,
-      Body: buffer,
-      ContentType: contentType,
-      CacheControl: "public, max-age=31536000, immutable",
-    })
-  );
+  const command = new PutObjectCommand({
+    Bucket: getBucket(),
+    Key: key,
+    ContentType: contentType,
+    CacheControl: "public, max-age=31536000, immutable",
+  });
 
-  return getPublicUrl(key);
+  // 10 min is enough for even very large uploads
+  const uploadUrl = await getSignedUrl(client, command, { expiresIn: 600 });
+  return { uploadUrl, publicUrl: getPublicUrl(key) };
 }
