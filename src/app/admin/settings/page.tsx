@@ -96,6 +96,13 @@ export default function SettingsPage() {
             onChange={(e) => setSettings({ email: e.target.value })}
           />
         </FormField>
+        <FormField label="Booking URL" hint="Google Calendar / Calendly / any scheduling link. Shows as 'Book a Call' in the hero.">
+          <TextInput
+            type="url"
+            value={s.bookingUrl}
+            onChange={(e) => setSettings({ bookingUrl: e.target.value })}
+          />
+        </FormField>
       </Card>
 
       <Card className="space-y-6">

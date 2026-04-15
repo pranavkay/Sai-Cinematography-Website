@@ -1,4 +1,4 @@
-import { Play, ChevronDown } from "lucide-react";
+import { Calendar, MessageCircle, ChevronDown } from "lucide-react";
 import { SiteSettings, HeroConfig } from "@/lib/types";
 import { HeroGallery } from "./HeroGallery";
 
@@ -49,21 +49,33 @@ export function Hero({
           {settings.tagline}
         </p>
 
-        <div className="flex flex-col md:flex-row gap-6 items-center">
-          {/* Watch Reel button — temporarily disabled, uncomment to re-enable */}
-          {/* <a
-            href={`https://www.youtube.com/watch?v=${encodeURIComponent(settings.heroVideoId)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative inline-flex items-center gap-4 px-8 py-4 bg-white text-black hover:bg-cinema-accent transition-all duration-500 rounded-sm"
-          >
-            <span className="relative flex h-8 w-8 items-center justify-center rounded-full border border-black/20 group-hover:border-black/40 transition-colors">
-              <Play className="w-3 h-3 ml-0.5 fill-current" aria-hidden="true" />
-            </span>
-            <span className="font-sans font-semibold tracking-widest text-sm uppercase">
-              Watch Reel
-            </span>
-          </a> */}
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-center">
+          {settings.bookingUrl && (
+            <a
+              href={settings.bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-3 px-8 py-4 bg-cinema-accent text-black hover:bg-white transition-all duration-500 rounded-sm"
+            >
+              <Calendar className="w-4 h-4" aria-hidden="true" />
+              <span className="font-sans font-semibold tracking-widest text-sm uppercase">
+                Book a Call
+              </span>
+            </a>
+          )}
+          {settings.whatsapp && (
+            <a
+              href={`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent("Hi Sai, I'd like to discuss a project")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-3 px-8 py-4 bg-transparent text-white border border-white/30 hover:border-cinema-accent hover:text-cinema-accent transition-all duration-500 rounded-sm"
+            >
+              <MessageCircle className="w-4 h-4" aria-hidden="true" />
+              <span className="font-sans font-semibold tracking-widest text-sm uppercase">
+                WhatsApp
+              </span>
+            </a>
+          )}
           <a
             href="#portfolio"
             className="text-white/70 hover:text-cinema-accent transition-colors font-sans text-sm tracking-widest uppercase border-b border-transparent hover:border-cinema-accent pb-1"

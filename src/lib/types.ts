@@ -22,6 +22,7 @@ export interface SiteSettings {
   phone: string;
   whatsapp: string;
   email: string;
+  bookingUrl: string;
   socials: {
     instagram: string;
     youtube: string;

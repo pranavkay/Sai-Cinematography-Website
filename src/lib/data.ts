@@ -12,8 +12,9 @@ export const defaultContent: Content = {
       "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1000&auto=format&fit=crop",
     aboutHeading: "Crafting visual narratives with intention.",
     phone: "",
-    whatsapp: "",
-    email: "contact@saivaibhav.com",
+    whatsapp: "919880945952",
+    email: "saivaibhav49@gmail.com",
+    bookingUrl: "https://calendar.app.google/CWUjCsUy39m5ghiQ6",
     socials: {
       instagram: "#",
       youtube: "#",
