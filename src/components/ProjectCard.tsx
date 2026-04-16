@@ -15,6 +15,7 @@ export function ProjectCard({
   const [imgError, setImgError] = useState(false);
 
   const getThumbnail = () => {
+    if (project.thumbnailUrl) return project.thumbnailUrl;
     if (project.platform === "youtube") {
       return imgError
         ? `https://img.youtube.com/vi/${project.videoId}/hqdefault.jpg`

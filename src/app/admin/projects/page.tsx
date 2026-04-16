@@ -9,8 +9,9 @@ import {
   Card,
   SaveStatus,
 } from "@/components/admin/AdminUI";
+import { SingleImageUploader } from "@/components/admin/ImageUploader";
 import { Project } from "@/lib/types";
-import { Trash2, Plus, ChevronUp, ChevronDown } from "lucide-react";
+import { Trash2, Plus } from "lucide-react";
 
 function extractVideoInfo(url: string): {
   platform: Project["platform"];
@@ -142,6 +143,13 @@ export default function ProjectsPage() {
                       value={p.title}
                       onChange={(e) => updateProject(p.id, { title: e.target.value })}
                       autoFocus
+                    />
+                  </FormField>
+                  <FormField label="Thumbnail" hint="Optional. If not set, YouTube auto-thumbnail is used.">
+                    <SingleImageUploader
+                      value={p.thumbnailUrl || ""}
+                      onChange={(url) => updateProject(p.id, { thumbnailUrl: url || undefined })}
+                      label={`${p.title} thumbnail`}
                     />
                   </FormField>
                   <FormField label="Video URL" hint="Paste YouTube, Instagram, or Drive URL — platform/ID auto-detected">

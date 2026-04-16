@@ -8,6 +8,7 @@ export interface Project {
   tags: string[];
   priority: number;
   featured?: boolean;
+  thumbnailUrl?: string;
   uploadDate?: string;
   durationMinutes?: number;
 }
