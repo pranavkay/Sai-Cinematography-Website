@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -14,22 +14,29 @@ const inter = Inter({
   display: "swap",
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  "https://sai-cinematography-website.vercel.app";
+
+// Kept ≤ 160 chars so Google doesn't truncate
+const description =
+  "Sai Vaibhav — cinematographer in Bengaluru, India. Commercials, brand films, event aftermovies, and documentaries with 6+ years of experience.";
+
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://sai-website.vercel.app"
-  ),
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Sai Vaibhav | Cinematographer - Bangalore",
+    default: "Sai Vaibhav — Cinematographer in Bengaluru",
     template: "%s | Sai Vaibhav",
   },
-  description:
-    "Professional cinematographer based in Bangalore, India. Specializing in brand films, corporate events, documentaries, and visual storytelling. 6+ years of experience crafting cinematic narratives.",
+  description,
   keywords: [
     "cinematographer",
-    "Bangalore",
+    "cinematographer Bengaluru",
+    "cinematographer Bangalore",
     "India",
     "brand films",
-    "corporate events",
+    "commercials",
+    "event aftermovie",
     "documentary",
     "video production",
     "visual storytelling",
@@ -38,24 +45,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
+    url: siteUrl,
     siteName: "Sai Vaibhav Cinematography",
-    title: "Sai Vaibhav | Cinematographer - Bangalore",
-    description:
-      "Professional cinematographer based in Bangalore. Brand films, corporate events, documentaries & visual storytelling.",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Sai Vaibhav - Cinematographer",
-      },
-    ],
+    title: "Sai Vaibhav — Cinematographer in Bengaluru",
+    description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sai Vaibhav | Cinematographer",
-    description:
-      "Professional cinematographer based in Bangalore. Brand films, events, documentaries.",
+    title: "Sai Vaibhav — Cinematographer in Bengaluru",
+    description,
   },
   alternates: {
     canonical: "/",
@@ -64,6 +62,13 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#050505",
+  colorScheme: "dark",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

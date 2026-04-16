@@ -44,7 +44,7 @@ export function Navigation({ settings }: { settings: SiteSettings }) {
         }`}
         aria-label="Main navigation"
       >
-        <a href="#" className="text-xl font-serif font-bold tracking-widest text-white">
+        <a href="#main-content" className="text-xl font-serif font-bold tracking-widest text-white">
           <span className="text-cinema-accent">SAI</span> VAIBHAV
         </a>
 

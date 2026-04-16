@@ -6,14 +6,16 @@ export function Footer({ settings }: { settings: SiteSettings }) {
   const whatsappUrl = settings.whatsapp
     ? `https://wa.me/${settings.whatsapp}`
     : null;
+  // Fall back to the WhatsApp number if no separate phone number set
+  const telNumber = settings.phone || (settings.whatsapp ? `+${settings.whatsapp}` : null);
 
   return (
     <footer id="contact" className="bg-black border-t border-cinema-accent/20 py-20 px-4">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
         <div className="text-center md:text-left">
-          <h2 className="font-serif text-3xl text-white mb-2">
+          <p className="font-serif text-3xl text-white mb-2">
             {settings.name.toUpperCase()}
-          </h2>
+          </p>
           <p className="text-cinema-accent text-sm tracking-widest uppercase">
             Cinematographer
           </p>
@@ -72,11 +74,11 @@ export function Footer({ settings }: { settings: SiteSettings }) {
               </div>
             </a>
           )}
-          {settings.phone && (
+          {telNumber && (
             <a
-              href={`tel:${settings.phone}`}
+              href={`tel:${telNumber.replace(/\s/g, "")}`}
               className="group flex flex-col items-center gap-2"
-              aria-label="Phone"
+              aria-label="Call"
             >
               <div className="p-3 bg-cinema-900 rounded-full text-gray-400 group-hover:text-black group-hover:bg-cinema-accent transition-all duration-300">
                 <Phone className="w-5 h-5" />

@@ -15,11 +15,12 @@ export function About({ settings }: { settings: SiteSettings }) {
             <div className="relative aspect-[3/4] overflow-hidden rounded-lg grayscale hover:grayscale-0 transition-all duration-700 ease-out">
               <Image
                 src={settings.profilePhotoUrl}
-                alt={`Portrait of ${settings.name}`}
-                fill
+                alt={`Portrait of ${settings.name}, cinematographer based in ${settings.location}`}
+                width={900}
+                height={1200}
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover scale-105 group-hover:scale-100 transition-transform duration-700"
-                priority={false}
+                className="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700"
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-cinema-900 via-transparent to-transparent opacity-60" />
 
@@ -38,12 +39,12 @@ export function About({ settings }: { settings: SiteSettings }) {
 
           {/* Text Side */}
           <div className="w-full lg:w-1/2">
-            <h2 className="text-cinema-accent font-sans font-bold tracking-widest text-sm uppercase mb-4">
+            <p className="text-cinema-accent font-sans font-bold tracking-widest text-sm uppercase mb-4">
               About Me
-            </h2>
-            <h3 className="font-serif text-4xl md:text-5xl text-white mb-8 leading-tight">
+            </p>
+            <h2 className="font-serif text-4xl md:text-5xl text-white mb-8 leading-tight">
               {settings.aboutHeading}
-            </h3>
+            </h2>
 
             <div className="space-y-4 mb-8">
               {paragraphs.map((p, i) => (

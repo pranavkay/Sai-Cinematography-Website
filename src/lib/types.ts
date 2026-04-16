@@ -8,6 +8,8 @@ export interface Project {
   tags: string[];
   priority: number;
   featured?: boolean;
+  uploadDate?: string;
+  durationMinutes?: number;
 }
 
 export interface SiteSettings {

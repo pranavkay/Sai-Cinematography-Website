@@ -37,12 +37,13 @@ export function Hero({
       </div>
 
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center">
-        <h2 className="text-cinema-accent font-sans font-medium tracking-[0.2em] text-sm md:text-base uppercase mb-6 border-b border-cinema-accent/30 pb-2">
+        <p className="text-cinema-accent font-sans font-medium tracking-[0.2em] text-sm md:text-base uppercase mb-6 border-b border-cinema-accent/30 pb-2">
           {settings.location}
-        </h2>
+        </p>
 
         <h1 className="font-serif text-5xl md:text-8xl lg:text-9xl text-white font-bold mb-6 leading-none tracking-tight">
-          {settings.name.toUpperCase()}
+          <span className="block">{settings.name.toUpperCase()}</span>
+          <span className="sr-only"> — Cinematographer in {settings.location}</span>
         </h1>
 
         <p className="text-gray-300 italic text-xl md:text-3xl max-w-2xl mx-auto mb-12 font-light tracking-wide">

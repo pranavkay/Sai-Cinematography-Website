@@ -217,6 +217,31 @@ export default function ProjectsPage() {
                       <option value="3">3 — Lowest</option>
                     </select>
                   </FormField>
+                  <div className="grid grid-cols-2 gap-4">
+                    <FormField label="Upload Date" hint="When the video was published (improves SEO for video rich results)">
+                      <TextInput
+                        type="date"
+                        value={p.uploadDate ? p.uploadDate.slice(0, 10) : ""}
+                        onChange={(e) =>
+                          updateProject(p.id, {
+                            uploadDate: e.target.value ? new Date(e.target.value).toISOString() : undefined,
+                          })
+                        }
+                      />
+                    </FormField>
+                    <FormField label="Duration (minutes)" hint="Optional. Improves video rich results.">
+                      <TextInput
+                        type="number"
+                        min="0"
+                        value={p.durationMinutes ?? ""}
+                        onChange={(e) =>
+                          updateProject(p.id, {
+                            durationMinutes: e.target.value ? parseInt(e.target.value, 10) : undefined,
+                          })
+                        }
+                      />
+                    </FormField>
+                  </div>
                   <div className="flex justify-end gap-3">
                     <Button variant="secondary" onClick={() => setEditingId(null)}>
                       Done
