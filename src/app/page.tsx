@@ -14,7 +14,7 @@ export const revalidate = 60;
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://sai-cinematography-website.vercel.app";
+  "https://saivaibhav.com";
 
 function iso8601Duration(minutes?: number): string | undefined {
   if (!minutes || minutes <= 0) return undefined;

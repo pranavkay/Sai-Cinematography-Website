@@ -16,7 +16,7 @@ const inter = Inter({
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://sai-cinematography-website.vercel.app";
+  "https://saivaibhav.com";
 
 // Kept ≤ 160 chars so Google doesn't truncate
 const description =
