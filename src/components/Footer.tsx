@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Phone, MessageCircle } from "lucide-react";
 import { InstagramIcon, YoutubeIcon, LinkedinIcon } from "./SocialIcons";
 import { SiteSettings } from "@/lib/types";
@@ -88,11 +89,15 @@ export function Footer({ settings }: { settings: SiteSettings }) {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 uppercase tracking-wider">
+      <div className="max-w-6xl mx-auto mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-600 uppercase tracking-wider">
         <p>
           &copy; {new Date().getFullYear()} {settings.name}. All rights
           reserved.
         </p>
+        <div className="flex gap-6">
+          <Link href="/privacy" className="hover:text-cinema-accent transition-colors">Privacy Policy</Link>
+          <Link href="/terms" className="hover:text-cinema-accent transition-colors">Terms</Link>
+        </div>
         <p>Based in {settings.location}</p>
       </div>
     </footer>
