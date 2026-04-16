@@ -63,6 +63,7 @@ export default function HeroPage() {
         <MultiImageUploader
           value={content.hero.images}
           onChange={(images) => setHero({ images })}
+          acceptVideo
         />
       </Card>
 

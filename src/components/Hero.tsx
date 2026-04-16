@@ -1,4 +1,4 @@
-import { Calendar, MessageCircle, ChevronDown } from "lucide-react";
+import { Calendar, MessageCircle } from "lucide-react";
 import { SiteSettings, HeroConfig } from "@/lib/types";
 import { HeroGallery } from "./HeroGallery";
 
@@ -86,13 +86,6 @@ export function Hero({
         </div>
       </div>
 
-      <div
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 animate-bounce"
-        aria-hidden="true"
-      >
-        <span className="text-[10px] uppercase tracking-widest text-white/50">Scroll</span>
-        <ChevronDown className="w-5 h-5 text-white/50" />
-      </div>
     </section>
   );
 }

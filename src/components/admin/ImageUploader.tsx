@@ -125,12 +125,25 @@ export function SingleImageUploader({
   );
 }
 
+const VIDEO_EXTENSIONS = [".mp4", ".webm", ".mov", ".m4v"];
+
+function isVideoUrl(url: string): boolean {
+  try {
+    const pathname = new URL(url).pathname.toLowerCase();
+    return VIDEO_EXTENSIONS.some((ext) => pathname.endsWith(ext));
+  } catch {
+    return VIDEO_EXTENSIONS.some((ext) => url.toLowerCase().endsWith(ext));
+  }
+}
+
 export function MultiImageUploader({
   value,
   onChange,
+  acceptVideo = false,
 }: {
   value: string[];
   onChange: (urls: string[]) => void;
+  acceptVideo?: boolean;
 }) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -177,12 +190,22 @@ export function MultiImageUploader({
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {value.map((url, i) => (
             <div key={url + i} className="relative group">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={url}
-                alt={`Hero ${i + 1}`}
-                className="w-full aspect-video object-cover rounded border border-white/10"
-              />
+              {isVideoUrl(url) ? (
+                <video
+                  src={url}
+                  className="w-full aspect-video object-cover rounded border border-white/10"
+                  muted
+                  playsInline
+                  preload="metadata"
+                />
+              ) : (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src={url}
+                  alt={`Hero ${i + 1}`}
+                  className="w-full aspect-video object-cover rounded border border-white/10"
+                />
+              )}
               <button
                 type="button"
                 onClick={() => remove(i)}
@@ -218,7 +241,7 @@ export function MultiImageUploader({
         <input
           ref={inputRef}
           type="file"
-          accept="image/*"
+          accept={acceptVideo ? "image/*,video/mp4,video/webm,video/quicktime" : "image/*"}
           multiple
           className="hidden"
           onChange={(e) => {
@@ -232,7 +255,7 @@ export function MultiImageUploader({
           className="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold tracking-widest uppercase border border-white/20 text-white rounded hover:border-cinema-accent hover:text-cinema-accent transition-colors disabled:opacity-50"
         >
           <Upload className="w-4 h-4" />
-          {uploading ? "Uploading..." : "Add images"}
+          {uploading ? "Uploading..." : acceptVideo ? "Add images or videos" : "Add images"}
         </button>
         {error && <span className="ml-3 text-xs text-red-400">{error}</span>}
       </div>
