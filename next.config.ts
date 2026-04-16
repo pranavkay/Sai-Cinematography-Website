@@ -66,7 +66,7 @@ const nextConfig: NextConfig = {
               `img-src ${cspImgSrc}`,
               "frame-src https://www.youtube.com https://drive.google.com",
               "frame-ancestors 'none'",
-              "connect-src 'self'",
+              "connect-src 'self' https://*.r2.cloudflarestorage.com",
               "media-src 'self' https://*.r2.dev",
             ].join("; "),
           },
